@@ -4,8 +4,11 @@
 // To use Phoenix channels, the first step is to import Socket
 // and connect at the socket path in "lib/my_app/endpoint.ex":
 import {Socket} from "phoenix"
-
+import jQuery from "jquery";
+window.$ = window.jQuery = jQuery;
 let socket = new Socket("/socket", {params: {token: window.userToken}})
+
+
 
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,
@@ -54,7 +57,40 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("room", {})
+let channel = socket.channel("room", {});
+let message = $('#message-input');
+let nickName = 'Nickname';
+let chatMessages = document.getElementById('chat-messages');
+
+message.focus();
+
+message.on('keypress', event => {
+	
+	if (event.keyCode == 13) {
+		//enter key
+		channel.push('message:new', {
+			message: message.val(),
+			user: nickName
+		});
+		message.val('');
+	}
+});
+
+channel.on('message:new', payload => {
+	console.log('received new message');
+	console.log(payload);
+	let template = document.createElement('div');
+	template.innerHTML = `<b>${payload.user}</b>:
+							${payload.message}<br>`;
+	chatMessages.appendChild(template);
+	//console.log(template);
+	console.log(chatMessages);
+	//console.log(template);
+	//it isn't really a template..
+	chatMessages.scrollTop = chatMessages.scrollHeight;
+});
+
+
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
