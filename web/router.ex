@@ -1,5 +1,6 @@
 defmodule Bussy.Router do
   use Bussy.Web, :router
+  use Coherence.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -7,6 +8,7 @@ defmodule Bussy.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Coherence.Authentication.Session
   end
 
   pipeline :api do

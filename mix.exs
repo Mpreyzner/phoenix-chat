@@ -10,6 +10,7 @@ defmodule Bussy.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      aliases: aliases(),
+     applications: [:coherence],
      deps: deps()]
   end
 
