@@ -27,7 +27,7 @@ defmodule Bussy.Router do
 
   scope "/" do
     pipe_through :browser
-    coherence_routes
+    coherence_routes()
   end
 
   scope "/" do
@@ -42,11 +42,7 @@ defmodule Bussy.Router do
   # end
  scope "/", Bussy do
   pipe_through :protected
-    # Add protected routes below
     get "/", PageController, :index
  end
-  # Other scopes may use custom stacks.
-  # scope "/api", Bussy do
-  #   pipe_through :api
-  # end
+ 
 end
