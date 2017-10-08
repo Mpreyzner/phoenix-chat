@@ -12,6 +12,7 @@ defmodule Bussy do
       supervisor(Bussy.Repo, []),
       # Start the endpoint when the application starts
       supervisor(Bussy.Endpoint, []),
+      supervisor(Bussy.Presence, []),
       # Start your own worker by calling: Bussy.Worker.start_link(arg1, arg2, arg3)
       # worker(Bussy.Worker, [arg1, arg2, arg3]),
     ]
