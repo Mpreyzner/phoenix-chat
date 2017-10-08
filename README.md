@@ -1,5 +1,7 @@
 # Bussy
 
+Small webchat using Coherence for auth.
+
 To start your Phoenix app:
 
   * Install dependencies with `mix deps.get`
